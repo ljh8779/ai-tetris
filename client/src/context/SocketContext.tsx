@@ -24,7 +24,8 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
   const connect = useCallback(() => {
     if (socket?.connected) return;
 
-    const serverUrl = import.meta.env.VITE_SERVER_URL || 'http://localhost:3001';
+    // Hardcode for debugging if env var fails
+    const serverUrl = import.meta.env.VITE_SERVER_URL || 'https://tetris-server-lnj0.onrender.com';
     console.log('Connecting to socket server:', serverUrl);
 
     // Use default transports (polling first) for better compatibility
