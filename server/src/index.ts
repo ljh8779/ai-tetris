@@ -21,6 +21,10 @@ const io = new Server(httpServer, {
 
 setupSocketHandler(io);
 
+app.get('/', (_req, res) => {
+  res.send('Tetris Server is running!');
+});
+
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok' });
 });
