@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:tetris.wiki)",
+      "Bash(npm install:*)",
+      "Bash(npx -w client tsc:*)",
+      "Bash(npx -w server tsc:*)",
+      "Bash(npx -w client vite:*)",
+      "Bash(npx -w server tsx src/index.ts:*)",
+      "Bash(vercel --version:*)",
+      "Bash(vercel whoami:*)",
+      "Bash(railway:*)",
+      "Bash(RAILWAY_TOKEN=9aa64e7a-0e2c-408f-9d03-4ab12b298ad5 railway whoami:*)"
+    ]
+  }
+}
