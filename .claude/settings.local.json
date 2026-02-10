@@ -10,7 +10,14 @@
       "Bash(vercel --version:*)",
       "Bash(vercel whoami:*)",
       "Bash(railway:*)",
-      "Bash(RAILWAY_TOKEN=9aa64e7a-0e2c-408f-9d03-4ab12b298ad5 railway whoami:*)"
+      "Bash(RAILWAY_TOKEN=9aa64e7a-0e2c-408f-9d03-4ab12b298ad5 railway whoami:*)",
+      "Bash(where:*)",
+      "Bash(winget install:*)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/GitHub CLI\")",
+      "Bash(gh auth:*)",
+      "Bash(RAILWAY_TOKEN=33c779c4-8d86-45bc-aee4-c2270b440cef railway whoami:*)",
+      "Bash(C:/react/ai_tetris/client/vercel.json << 'EOF'\n{\n  \"buildCommand\": \"cd .. && npm install && npm run build -w client\",\n  \"outputDirectory\": \"dist\",\n  \"installCommand\": \"echo 'skip'\",\n  \"framework\": \"vite\"\n}\nEOF)",
+      "Bash(npm run build:*)"
     ]
   }
 }
