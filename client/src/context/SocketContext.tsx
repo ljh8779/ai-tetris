@@ -30,6 +30,7 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
 
     // Use default transports (polling first) for better compatibility
     const newSocket = io(serverUrl, {
+      transports: ['polling'],
       autoConnect: true,
       withCredentials: false
     });
