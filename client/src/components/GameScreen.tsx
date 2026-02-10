@@ -3,6 +3,7 @@ import { TetrisGame, LineClearEvent } from '../engine/game';
 import { TetrisBoard, PiecePreview } from './TetrisBoard';
 import { OpponentBoard } from './OpponentBoard';
 import { ChatPanel } from './ChatPanel';
+import { TouchControls } from './TouchControls';
 import { BoardSnapshot, ChatMessage } from 'shared';
 import '../styles/game.css';
 
@@ -247,6 +248,8 @@ export function GameScreen({
           </div>
         </div>
       )}
+
+      <TouchControls onAction={game.update.bind(game)} />
     </div>
   );
 }
