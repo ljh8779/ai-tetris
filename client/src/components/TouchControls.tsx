@@ -39,7 +39,7 @@ export function TouchControls({ onAction }: TouchControlsProps) {
 
 
   return (
-    <div className="touch-controls">
+    <div className="touch-controls" style={{ touchAction: 'none' }}>
       <div className="d-pad">
         <button
           className="btn-control btn-up"

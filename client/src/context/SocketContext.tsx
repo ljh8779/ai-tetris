@@ -29,15 +29,17 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
     console.log('Connecting to socket server:', serverUrl);
 
 
-    // Force polling ONLY and disable upgrade to prevent WebSocket errors entirely
+    // Revert to standard WebSocket first for performance, with polling fallback
+    // This fixes "Insufficient Resources" caused by aggressive polling
     const newSocket = io(serverUrl, {
-      transports: ['polling'],
-      upgrade: false,
+      transports: ['websocket', 'polling'],
+      upgrade: true,
       autoConnect: true,
       withCredentials: false,
       reconnection: true,
-      reconnectionAttempts: 10,
+      reconnectionAttempts: 5,
       reconnectionDelay: 1000,
+      timeout: 10000,
     });
 
     newSocket.on('connect', () => {

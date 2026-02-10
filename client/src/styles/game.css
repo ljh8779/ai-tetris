@@ -5,10 +5,16 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
-  /* Use dvh for mobile browsers to account for address bar */
+  /* Use dvh for mobile browsers */
   height: 100dvh;
   gap: 20px;
   padding: 20px;
+  /* Safe area patterns for iPhone Notch/Island */
+  padding-top: env(safe-area-inset-top, 20px);
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+  padding-left: env(safe-area-inset-left, 20px);
+  padding-right: env(safe-area-inset-right, 20px);
+
   box-sizing: border-box;
   overflow: hidden;
   /* Prevent scrolling */
