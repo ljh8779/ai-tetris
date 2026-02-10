@@ -1,9 +1,11 @@
 services:
   - type: web
     name: tetris-server
-    runtime: node
-    buildCommand: npm install
-    startCommand: npx -w server tsx src/index.ts
+    runtime: docker
+    dockerfile: ./server/Dockerfile
+    dockerContext: .
+    # buildCommand: npm install # Docker handles this
+    # startCommand: npx -w server tsx src/index.ts # Docker handles this
     envVars:
       - key: CLIENT_URL
         value: https://aitetris.vercel.app
