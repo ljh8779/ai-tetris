@@ -2,7 +2,7 @@ services:
   - type: web
     name: tetris-server
     runtime: docker
-    dockerfile: ./server/Dockerfile
+    dockerfile: ./Dockerfile
     dockerContext: .
     # buildCommand: npm install # Docker handles this
     # startCommand: npx -w server tsx src/index.ts # Docker handles this
