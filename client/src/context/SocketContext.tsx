@@ -25,9 +25,12 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
     if (socket?.connected) return;
 
     const serverUrl = import.meta.env.VITE_SERVER_URL || 'http://localhost:3001';
+    console.log('Connecting to socket server:', serverUrl);
+
+    // Use default transports (polling first) for better compatibility
     const newSocket = io(serverUrl, {
-      transports: ['websocket'],
       autoConnect: true,
+      withCredentials: false
     });
 
     newSocket.on('connect', () => {
