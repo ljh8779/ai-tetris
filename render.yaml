@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: tetris-server
+    runtime: node
+    buildCommand: npm install
+    startCommand: npx -w server tsx src/index.ts
+    envVars:
+      - key: CLIENT_URL
+        value: https://aitetris.vercel.app
+      - key: NODE_ENV
+        value: production
