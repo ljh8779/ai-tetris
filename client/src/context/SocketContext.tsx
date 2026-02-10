@@ -28,6 +28,7 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
     const serverUrl = import.meta.env.VITE_SERVER_URL || 'https://tetris-server-lnj0.onrender.com';
     console.log('Connecting to socket server:', serverUrl);
 
+
     // Force polling ONLY and disable upgrade to prevent WebSocket errors entirely
     const newSocket = io(serverUrl, {
       transports: ['polling'],

@@ -37,6 +37,7 @@ export function TouchControls({ onAction }: TouchControlsProps) {
     }
   };
 
+
   return (
     <div className="touch-controls">
       <div className="d-pad">
