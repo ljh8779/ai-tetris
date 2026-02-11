@@ -176,7 +176,7 @@ export function GameScreen({
         </div>
 
         {/* Board */}
-        <div style={{ position: 'relative' }}>
+        <div className="board-wrapper">
           <TetrisBoard
             game={game}
             isPaused={isPaused}
@@ -209,9 +209,9 @@ export function GameScreen({
             </div>
           </div>
 
-          {/* Solo restart button */}
+          {/* Solo restart button - desktop only */}
           {mode === 'solo' && game.state.isGameOver && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px' }}>
+            <div className="solo-actions-desktop">
               <button className="btn btn-primary" onClick={handleRestart}>
                 Restart
               </button>
@@ -222,6 +222,18 @@ export function GameScreen({
           )}
         </div>
       </div>
+
+      {/* Solo restart button - mobile (outside game-container so it's visible) */}
+      {mode === 'solo' && game.state.isGameOver && (
+        <div className="solo-actions-mobile">
+          <button className="btn btn-primary" onClick={handleRestart}>
+            Restart
+          </button>
+          <button className="btn btn-secondary" onClick={onBack}>
+            Menu
+          </button>
+        </div>
+      )}
 
       {/* Chat (multiplayer) */}
       {mode === 'multiplayer' && onChatSend && (

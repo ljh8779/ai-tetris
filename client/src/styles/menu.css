@@ -415,3 +415,140 @@
   from { transform: translateY(-100px) rotate(0deg); }
   to { transform: translateY(100vh) rotate(360deg); }
 }
+
+/* Mobile Menu Styles */
+@media (max-width: 1024px) {
+  .main-menu {
+    height: 100vh;
+    height: 100dvh;
+    gap: 24px;
+    padding: 20px;
+    padding-top: env(safe-area-inset-top, 20px);
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+  }
+
+  .menu-title h1 {
+    font-size: 32px;
+  }
+
+  .menu-title p {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  .menu-buttons {
+    width: 100%;
+    max-width: 280px;
+    gap: 12px;
+  }
+
+  .menu-buttons .btn {
+    font-size: 14px;
+    padding: 14px;
+  }
+
+  .name-input-container .input {
+    width: 200px;
+    font-size: 14px;
+  }
+
+  /* Lobby mobile */
+  .lobby {
+    height: 100vh;
+    height: 100dvh;
+    padding: 16px;
+    padding-top: env(safe-area-inset-top, 16px);
+    padding-bottom: env(safe-area-inset-bottom, 16px);
+    gap: 16px;
+  }
+
+  .lobby-header {
+    max-width: 100%;
+  }
+
+  .lobby-header h2 {
+    font-size: 18px;
+  }
+
+  .lobby-content {
+    max-width: 100%;
+  }
+
+  .room-item {
+    padding: 12px;
+  }
+
+  .room-name {
+    font-size: 14px;
+  }
+
+  /* Waiting Room mobile */
+  .waiting-room {
+    height: 100vh;
+    height: 100dvh;
+    gap: 20px;
+    padding: 20px;
+    padding-top: env(safe-area-inset-top, 20px);
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+  }
+
+  .waiting-room h2 {
+    font-size: 20px;
+  }
+
+  .player-list {
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .player-slot {
+    padding: 16px 24px;
+    min-width: 160px;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .player-avatar {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+
+  .player-name {
+    font-size: 16px;
+  }
+
+  .waiting-actions {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .waiting-actions .btn {
+    width: 100%;
+  }
+
+  /* Result overlay mobile */
+  .result-overlay {
+    height: 100vh;
+    height: 100dvh;
+    padding: 20px;
+  }
+
+  .result-card {
+    padding: 32px 24px;
+    max-width: calc(100vw - 40px);
+  }
+
+  .result-title {
+    font-size: 36px;
+  }
+
+  .result-details {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+}

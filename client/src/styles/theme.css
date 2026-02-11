@@ -25,6 +25,9 @@ body {
   overflow: hidden;
   width: 100vw;
   height: 100vh;
+  height: 100dvh; /* fallback: 100vh for browsers without dvh support */
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #root {
