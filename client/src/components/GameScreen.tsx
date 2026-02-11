@@ -113,18 +113,8 @@ export function GameScreen({
 
   return (
     <div className="game-screen">
-      {/* Opponent (multiplayer) */}
-      {mode === 'multiplayer' && (
-        <>
-          <OpponentBoard snapshot={opponentSnapshot ?? null} name={opponentName} />
-          <div className="vs-display">
-            <span className="vs-text">VS</span>
-          </div>
-        </>
-      )}
-
       <div className="game-container">
-        {/* Left panel: Hold + Score */}
+        {/* Left panel: Hold + Score + (Opponent or Controls) */}
         <div className="side-panel">
           <div className="panel hold-panel">
             <div className="panel-title">Hold</div>
@@ -150,29 +140,37 @@ export function GameScreen({
             </div>
           </div>
 
-          <div className="panel key-guide">
-            <div className="panel-title">Controls</div>
-            <div className="key-guide-row">
-              <span className="key-name">Move</span>
-              <span className="key-value">← →</span>
+          {/* Multiplayer: Opponent board in left panel */}
+          {mode === 'multiplayer' && (
+            <OpponentBoard snapshot={opponentSnapshot ?? null} name={opponentName} />
+          )}
+
+          {/* Solo: Key guide */}
+          {mode === 'solo' && (
+            <div className="panel key-guide">
+              <div className="panel-title">Controls</div>
+              <div className="key-guide-row">
+                <span className="key-name">Move</span>
+                <span className="key-value">← →</span>
+              </div>
+              <div className="key-guide-row">
+                <span className="key-name">Soft Drop</span>
+                <span className="key-value">↓</span>
+              </div>
+              <div className="key-guide-row">
+                <span className="key-name">Hard Drop</span>
+                <span className="key-value">Space</span>
+              </div>
+              <div className="key-guide-row">
+                <span className="key-name">Rotate</span>
+                <span className="key-value">↑ / X / Z</span>
+              </div>
+              <div className="key-guide-row">
+                <span className="key-name">Hold</span>
+                <span className="key-value">C / Shift</span>
+              </div>
             </div>
-            <div className="key-guide-row">
-              <span className="key-name">Soft Drop</span>
-              <span className="key-value">↓</span>
-            </div>
-            <div className="key-guide-row">
-              <span className="key-name">Hard Drop</span>
-              <span className="key-value">Space</span>
-            </div>
-            <div className="key-guide-row">
-              <span className="key-name">Rotate</span>
-              <span className="key-value">↑ / X / Z</span>
-            </div>
-            <div className="key-guide-row">
-              <span className="key-name">Hold</span>
-              <span className="key-value">C / Shift</span>
-            </div>
-          </div>
+          )}
         </div>
 
         {/* Board */}
@@ -196,7 +194,7 @@ export function GameScreen({
           )}
         </div>
 
-        {/* Right panel: Next */}
+        {/* Right panel: Next + Chat + Solo buttons */}
         <div className="side-panel side-panel-right">
           <div className="panel next-panel">
             <div className="panel-title">Next</div>
@@ -209,9 +207,18 @@ export function GameScreen({
             </div>
           </div>
 
-          {/* Solo restart button - desktop only */}
+          {/* Chat (multiplayer) - below Next panel */}
+          {mode === 'multiplayer' && onChatSend && (
+            <ChatPanel
+              messages={chatMessages}
+              onSend={onChatSend}
+              onFocusChange={setIsChatFocused}
+            />
+          )}
+
+          {/* Solo restart button */}
           {mode === 'solo' && game.state.isGameOver && (
-            <div className="solo-actions-desktop">
+            <div className="solo-actions">
               <button className="btn btn-primary" onClick={handleRestart}>
                 Restart
               </button>
@@ -222,27 +229,6 @@ export function GameScreen({
           )}
         </div>
       </div>
-
-      {/* Solo restart button - mobile (outside game-container so it's visible) */}
-      {mode === 'solo' && game.state.isGameOver && (
-        <div className="solo-actions-mobile">
-          <button className="btn btn-primary" onClick={handleRestart}>
-            Restart
-          </button>
-          <button className="btn btn-secondary" onClick={onBack}>
-            Menu
-          </button>
-        </div>
-      )}
-
-      {/* Chat (multiplayer) */}
-      {mode === 'multiplayer' && onChatSend && (
-        <ChatPanel
-          messages={chatMessages}
-          onSend={onChatSend}
-          onFocusChange={setIsChatFocused}
-        />
-      )}
 
       {/* Result overlay */}
       {gameResult && (

@@ -5,22 +5,17 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
-  /* Use dvh for mobile browsers */
   height: 100dvh;
   gap: 20px;
   padding: 20px;
-  /* Safe area patterns for iPhone Notch/Island */
   padding-top: env(safe-area-inset-top, 20px);
   padding-bottom: env(safe-area-inset-bottom, 20px);
   padding-left: env(safe-area-inset-left, 20px);
   padding-right: env(safe-area-inset-right, 20px);
-
   box-sizing: border-box;
   overflow: hidden;
-  /* Prevent scrolling */
 }
 
-/* Ensure all elements use border-box */
 * {
   box-sizing: border-box;
 }
@@ -52,6 +47,11 @@
 .board-canvas {
   display: block;
   border-radius: 4px;
+}
+
+/* Board wrapper */
+.board-wrapper {
+  position: relative;
 }
 
 /* Hold piece */
@@ -157,7 +157,6 @@
   transition: height 0.3s ease;
 }
 
-
 /* Countdown overlay */
 .countdown-overlay {
   position: absolute;
@@ -213,17 +212,22 @@
   margin-bottom: 24px;
 }
 
-/* Opponent board */
+/* Opponent board (inside left panel) */
 .opponent-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-glow);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  padding: 8px;
 }
 
 .opponent-name {
   font-family: 'Orbitron', sans-serif;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--accent-pink);
 }
@@ -231,56 +235,34 @@
 .opponent-canvas {
   border: 1px solid var(--border-glow);
   border-radius: 4px;
+  width: 100%;
+  height: auto;
 }
 
 .opponent-score {
   font-family: 'Orbitron', sans-serif;
-  font-size: 12px;
+  font-size: 10px;
   color: var(--text-secondary);
 }
 
-/* VS display */
-.vs-display {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 20px;
-}
-
-.vs-text {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 36px;
-  font-weight: 900;
-  background: linear-gradient(135deg, var(--accent-pink), var(--accent-gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Board wrapper (for positioning countdown overlay) */
-.board-wrapper {
-  position: relative;
-}
-
 /* Solo action buttons */
-.solo-actions-desktop {
+.solo-actions {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-top: 12px;
 }
 
-.solo-actions-mobile {
-  display: none;
-}
-
-/* Touch Controls */
+/* Touch Controls - hidden on desktop */
 .touch-controls {
   display: none;
-  /* Hidden on desktop */
 }
 
-/* Mobile Layout */
+/* ==========================================
+   MOBILE LAYOUT (max-width: 1024px)
+   Same horizontal arrangement as desktop,
+   just scaled down to fit.
+   ========================================== */
 @media (max-width: 1024px) {
   .game-screen {
     flex-direction: column;
@@ -290,271 +272,249 @@
     overflow: hidden;
     gap: 0;
     justify-content: flex-start;
-    position: relative;
+    align-items: stretch;
   }
 
-  /* Main Container: Flex Column */
+  /* Game container: KEEP HORIZONTAL (row) like desktop */
   .game-container {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    flex: 1;
-    min-height: 0;
-    gap: 0;
-    padding-top: env(safe-area-inset-top, 8px);
-  }
-
-  /* Top Bar: Combine side panels into horizontal header */
-  .side-panel,
-  .side-panel-right {
-    width: 100%;
     flex-direction: row;
+    align-items: flex-start;
+    flex: 0 1 auto;
+    margin: auto 0;
+    min-height: 0;
+    gap: 6px;
+    padding: 6px;
+    padding-top: env(safe-area-inset-top, 6px);
+    padding-left: env(safe-area-inset-left, 6px);
+    padding-right: env(safe-area-inset-right, 6px);
     justify-content: center;
-    align-items: center;
-    gap: 8px;
-    padding: 4px 8px;
-    background: transparent;
-    margin: 0;
-    flex-shrink: 0;
-    order: 1;
   }
 
+  /* Side panels: narrow vertical columns */
+  .side-panel {
+    width: 72px;
+    gap: 4px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .side-panel-right {
+    width: 72px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  /* Hide keyboard guide on mobile */
   .key-guide {
     display: none;
   }
 
-  /* Solo desktop buttons hidden on mobile */
-  .solo-actions-desktop {
-    display: none;
-  }
-
-  /* Solo mobile buttons */
-  .solo-actions-mobile {
-    display: none;
-    position: fixed;
-    bottom: 180px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 30;
-    gap: 8px;
-    flex-direction: row;
-  }
-
-  .solo-actions-mobile .btn {
-    padding: 10px 20px;
-    font-size: 12px;
-  }
-
-  /* Show mobile solo buttons when game over */
-  .game-screen:has(.gameover-overlay) .solo-actions-mobile {
-    display: flex;
-  }
-
-  /* Compact Panels */
+  /* Compact panels */
   .panel {
-    background: rgba(0, 0, 0, 0.6);
-    padding: 4px 8px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 4px 6px;
     border-radius: 6px;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(5px);
   }
 
   .panel-title {
     font-size: 8px;
-    margin-bottom: 1px;
-    opacity: 0.7;
+    margin-bottom: 2px;
+    opacity: 0.8;
     letter-spacing: 1px;
   }
 
-  .hold-panel,
-  .next-panel {
+  /* All canvases inside panels should scale to fit */
+  .side-panel canvas,
+  .side-panel-right canvas {
+    max-width: 100%;
+    height: auto !important;
+    display: block;
+  }
+
+  /* Hold panel - compact */
+  .hold-panel {
     width: auto;
-    min-width: 40px;
   }
 
   .hold-display {
-    width: 40px;
-    height: 30px;
-    margin: 0;
+    width: 100%;
+    height: auto;
+    min-height: 28px;
+    margin: 2px auto 0;
   }
 
-  .next-list {
-    flex-direction: row;
-    gap: 3px;
-  }
-
-  .next-item {
-    width: 30px;
-    height: 22px;
-  }
-
-  .next-item:nth-child(n+4) {
-    display: none;
-  }
-
+  /* Score panel - compact */
   .score-panel {
-    min-width: 70px;
-    padding: 3px 8px;
+    padding: 4px 6px;
   }
 
   .score-value {
     font-size: 14px;
-    margin-bottom: 1px;
+    margin-bottom: 2px;
   }
 
   .score-details {
-    flex-direction: row;
-    gap: 6px;
-    font-size: 9px;
+    flex-direction: column;
+    gap: 2px;
   }
 
   .score-row {
     font-size: 9px;
-    gap: 4px;
   }
 
-  /* Board Wrapper: Takes remaining space */
-  .board-wrapper {
-    order: 2;
-    flex: 1;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 0;
-    overflow: hidden;
-    padding: 2px 4px;
+  /* Next panel - compact vertical list */
+  .next-panel {
+    width: auto;
   }
 
-  /* Board Container inside wrapper */
-  .board-container {
-    height: 100%;
-    display: flex;
+  .next-list {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    gap: 3px;
+    margin-top: 2px;
   }
 
-  .board-canvas {
-    display: block;
+  .next-item {
+    width: 100%;
+    height: auto;
+    min-height: 20px;
+  }
+
+  /* Show only 3 next pieces to save space */
+  .next-item:nth-child(n+4) {
+    display: none;
+  }
+
+  /* Board wrapper: natural size, constrained by available space */
+  .board-wrapper {
+    flex: 0 1 auto;
+    min-width: 0;
     max-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* Board container */
+  .board-container {
+    max-height: 100%;
+  }
+
+  /* Canvas: scale to fit available space */
+  .board-canvas {
+    max-height: calc(100dvh - 158px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
     max-width: 100%;
     width: auto;
     height: auto;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
   }
 
-  /* Garbage meter */
+  /* Garbage meter - smaller */
   .garbage-meter {
-    right: -10px;
-    width: 6px;
+    right: -8px;
+    width: 5px;
   }
 
-  /* Multiplayer: Opponent PiP (top right) */
+  /* Solo action buttons on mobile */
+  .solo-actions {
+    margin-top: 6px;
+    gap: 4px;
+  }
+
+  .solo-actions .btn {
+    padding: 6px 8px;
+    font-size: 9px;
+  }
+
+  /* Opponent board: compact inside left panel */
   .opponent-container {
-    position: fixed;
-    top: calc(env(safe-area-inset-top, 8px) + 50px);
-    right: 6px;
-    width: 70px;
-    z-index: 15;
-    background: rgba(0, 0, 0, 0.85);
-    border: 1px solid rgba(100, 150, 255, 0.3);
+    padding: 4px;
     border-radius: 6px;
-    padding: 3px;
+    gap: 2px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .opponent-canvas {
     width: 100% !important;
     height: auto !important;
+    border-radius: 2px;
   }
 
   .opponent-name {
-    font-size: 7px;
-    margin-bottom: 1px;
+    font-size: 8px;
+    margin-bottom: 0;
     text-align: center;
   }
 
   .opponent-score {
-    display: none;
+    font-size: 7px;
   }
 
-  /* VS display: subtle watermark */
-  .vs-display {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    opacity: 0.15;
-    z-index: 0;
-  }
-
-  .vs-text {
-    font-size: 24px;
-  }
-
-  /* Chat panel: compact bottom bar on mobile */
+  /* Chat panel: compact, inside right panel */
   .chat-panel {
-    position: fixed;
-    bottom: calc(160px + env(safe-area-inset-bottom, 0px));
-    left: 0;
-    right: 0;
     width: 100%;
     height: auto;
-    max-height: 120px;
-    z-index: 25;
-    border-radius: 0;
-    opacity: 0.9;
+    max-height: 160px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .chat-header {
+    padding: 3px 6px;
+    font-size: 7px;
+    letter-spacing: 1px;
   }
 
   .chat-messages {
     max-height: 60px;
-    padding: 4px 8px;
+    min-height: 30px;
+    padding: 2px 4px;
+    gap: 2px;
   }
 
   .chat-message {
-    font-size: 11px;
+    font-size: 8px;
+    line-height: 1.2;
   }
 
-  .chat-header {
-    padding: 4px 10px;
-    font-size: 10px;
+  .chat-sender {
+    font-size: 8px;
   }
 
   .chat-input-container {
-    padding: 4px 8px;
+    padding: 2px 4px;
+    gap: 3px;
   }
 
   .chat-input {
-    font-size: 12px;
-    padding: 6px 8px;
+    font-size: 10px;
+    padding: 4px 6px;
   }
 
   .chat-send-btn {
-    padding: 6px 12px;
-    font-size: 11px;
+    padding: 4px 6px;
+    font-size: 8px;
   }
 
-  /* Touch Controls: Fixed Bottom */
+  /* Touch Controls: Fixed bottom area */
   .touch-controls {
     display: flex;
-    order: 3;
     width: 100%;
     height: 150px;
-    padding: 8px 15px;
-    padding-bottom: max(env(safe-area-inset-bottom, 8px), 8px);
-    padding-left: max(env(safe-area-inset-left, 15px), 15px);
-    padding-right: max(env(safe-area-inset-right, 15px), 15px);
+    padding: 6px 12px;
+    padding-bottom: max(env(safe-area-inset-bottom, 6px), 6px);
+    padding-left: max(env(safe-area-inset-left, 12px), 12px);
+    padding-right: max(env(safe-area-inset-right, 12px), 12px);
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.5));
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.4));
     flex-shrink: 0;
     z-index: 20;
-    gap: 10px;
   }
 
   .d-pad {
@@ -562,14 +522,14 @@
     grid-template-areas:
       ". up ."
       "left down right";
-    grid-template-columns: 52px 52px 52px;
-    grid-template-rows: 52px 52px;
+    grid-template-columns: 50px 50px 50px;
+    grid-template-rows: 50px 50px;
     gap: 4px;
   }
 
   .btn-control {
-    width: 52px;
-    height: 52px;
+    width: 50px;
+    height: 50px;
     background: rgba(255, 255, 255, 0.12);
     border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 12px;
@@ -601,13 +561,13 @@
   }
 
   .btn-action {
-    width: 52px;
-    height: 52px;
+    width: 50px;
+    height: 50px;
   }
 
   .btn-drop {
-    width: 60px;
-    height: 60px;
+    width: 58px;
+    height: 58px;
     font-size: 26px;
     background: rgba(255, 68, 68, 0.2);
     border-color: rgba(255, 68, 68, 0.5);
@@ -623,17 +583,13 @@
   }
 
   /* Countdown on mobile */
-  .countdown-overlay {
-    border-radius: 0;
-  }
-
   .countdown-text {
     font-size: 48px;
   }
 
-  /* Game over overlay on mobile */
+  /* Game over on mobile */
   .gameover-text {
-    font-size: 28px;
+    font-size: 24px;
   }
 
   .gameover-score {
@@ -642,13 +598,13 @@
 
   /* Result overlay on mobile */
   .result-card {
-    padding: 32px 24px;
+    padding: 24px 20px;
     margin: 16px;
     max-width: calc(100vw - 32px);
   }
 
   .result-title {
-    font-size: 36px;
+    font-size: 32px;
   }
 
   .result-details {
